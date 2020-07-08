@@ -1,0 +1,17 @@
+
+/* Data Dictionary, Number Of Variables = 3 */
+/*    Name = TOTAL_UNITS, Type = continuous. */
+/*    Name = PEOPLE_PER_UNIT, Type = continuous. */
+/*    Name = RENT_PER_MONTH, Type = continuous. */
+
+ BF1 = max( 0, TOTAL_UNITS - 67167);
+ BF3 = max( 0, RENT_PER_MONTH - 2138);
+ BF5 = max( 0, PEOPLE_PER_UNIT - 12.8);
+ BF7 = max( 0, TOTAL_UNITS - 50758);
+ BF9 = max( 0, RENT_PER_MONTH - 2437);
+ BF11 = max( 0, TOTAL_UNITS - 4615);
+ BF13 = max( 0, TOTAL_UNITS - 22862);
+
+ Y = 389.546 + 0.538572 * BF1 + 5.87034 * BF3 - 3933.73 * BF5
+             - 0.2787 * BF7 + 10.5798 * BF9 + 0.278439 * BF11
+             - 0.126906 * BF13;
