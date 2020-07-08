@@ -1,0 +1,16 @@
+/* Data Dictionary, Number Of Variables = 5 */
+/*    Name = TOTAL_UNITS, Type = continuous. */
+/*    Name = PEOPLE_PER_UNIT, Type = continuous. */
+/*    Name = RENT_PER_MONTH, Type = continuous. */
+/*    Name = TOTAL_NURSING_FACILITIES, Type = continuous. */
+/*    Name = AGRICULTURE_FORESTRY_FISHING_AND_HUNTING_AND_MINING_PERCENT, Type = continuous. */
+
+ BF1 = max( 0, TOTAL_UNITS - 49068);
+ BF2 = max( 0, 49068 - TOTAL_UNITS);
+ BF3 = max( 0, RENT_PER_MONTH - 1869);
+ BF6 = max( 0, 0.6 - AGRICULTURE_FORESTRY_FISHING_AND_HUNTING_AND_MINING_PERCENT);
+ BF7 = max( 0, PEOPLE_PER_UNIT - 11.1);
+ BF9 = max( 0, TOTAL_NURSING_FACILITIES - 18);
+
+ Y = 390.951 + 0.019067 * BF1 - 0.00845086 * BF2 + 0.425784 * BF3
+             + 312.135 * BF6 - 87.2123 * BF7 - 39.1349 * BF9;
