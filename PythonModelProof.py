@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 plotX = []
 plotY = []
 
-def validationStepPositives():
+def validationStepPositivesPer100000():
     os.chdir("C:////Users////moose_f8sa3n2////Google Drive////Data Analysis for Project Management////Course Project////Positives Per 100,000")
     with open('CountyCovidDataAll9_scorePositives.csv') as f:
         reader = csv.DictReader(f, delimiter=',')
@@ -32,7 +32,7 @@ def validationStepPositives():
 
             yield round(float(rows["RESPONSE"]),3),round(ValCalc,3)
 
-def validationStepDeaths():
+def validationStepDeathsPer100000():
     os.chdir("C:////Users////moose_f8sa3n2////Google Drive////Data Analysis for Project Management////Course Project////Deaths Per 100,000")
     with open('CountyCovidDataAll9_scoreDeaths.csv') as f:
         reader = csv.DictReader(f, delimiter=',')
@@ -60,16 +60,63 @@ def validationStepDeaths():
             
             yield round(float(rows["RESPONSE"]),3),round(ValCalc,3)
 
+
+def validationStepDeaths():
+    os.chdir("C:////Users////moose_f8sa3n2////Google Drive////Data Analysis for Project Management////Week 6")
+    with open('scored_Deaths2.csv') as f:
+        reader = csv.DictReader(f, delimiter=',')
+        for rows in reader:
+             BF1 = max( 0, float(rows["TOTALUNITS"]) - 68184)
+             BF3 = max( 0, float(rows["HH_INCOME"]) - 86315)
+             BF4 = max( 0, 86315 - float(rows["HH_INCOME"]))
+             BF5 = max( 0, float(rows["PEOPLE_PER_UNIT"]) - 10.4)
+             BF6 = max( 0, 10.4 - float(rows["PEOPLE_PER_UNIT"]))
+             BF7 = max( 0, float(rows["ASIAN_MALE_PERCENT"]) - 16.75)
+             BF8 = max( 0, 16.75 - float(rows["ASIAN_MALE_PERCENT"]))
+             BF9 = max( 0, float(rows["TMINORITY"]) - 405)
+             BF10 = max( 0, 405 - float(rows["TMINORITY"]))
+             BF11 = max( 0, float(rows["TOTALUNITS"]) - 25040)
+             BF13 = max( 0, float(rows["TOTALUNITS"]) - 7372)
+
+             ValCalc = 152.318 + 0.015104 * BF1 + 0.0145447 * BF3 - 0.000159989 * BF4\
+                      - 90.2748 * BF5 + 1.63934 * BF6 - 33.8793 * BF7\
+                      - 7.02735 * BF8 + 0.92076 * BF9 - 0.124537 * BF10\
+                      - 0.0126089 * BF11 + 0.0159557 * BF13
+            
+             yield round(float(rows["RESPONSE"]),3),round(ValCalc,3)
+
+
+def validationStepPositives():
+    os.chdir("C:////Users////moose_f8sa3n2////Google Drive////Data Analysis for Project Management////Week 6")
+    with open('scored_Positives.csv') as f:
+        reader = csv.DictReader(f, delimiter=',')
+        for rows in reader:
+             BF1 = max( 0, float(rows["RESIDENTS_TOTAL_ALL_DEATHS"]) - 928)
+             BF6 = max( 0, 7.34046e+07 - float(rows["GDP_2018_THOUSANDS_DOLLARS"]))
+             BF7 = max( 0, float(rows["HH_INCOME"]) - 94206)
+             BF11 = max( 0, float(rows["PEOPLE_TOTAL"]) - 108445)
+
+             ValCalc = 7636.38 + 9.48817 * BF1 - 0.000106908 * BF6 + 0.199672 * BF7 + 0.104197 * BF11
+
+             yield round(float(rows["RESPONSE"]),3),round(ValCalc,3)
+
+
+
 def dataPlotter():
-    for line in validationStepPositives():
-    #for line in validationStepDeaths():
+    posPer = validationStepPositivesPer100000()
+    deathsPer = validationStepDeathsPer100000()
+    pos = validationStepPositives()
+    death = validationStepDeaths()
+    functions = [posPer,deathsPer,pos,death]
+    
+    for line in functions:
         if line[1] > 0:
             plotX.append(line[1])
             plotY.append(line[0])
 
     fig = plt.figure(figsize=(10,7))
     plt.grid(True)
-    plt.title('Predicted vs Response Per 100,000')
+    plt.title('Predicted vs Actual Data')
     plt.xlabel('Predicted Values from data')
     plt.ylabel('Actual Values from data')
     sb.regplot(plotX,plotY,color='orange',marker="+")
