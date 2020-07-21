@@ -103,13 +103,11 @@ def validationStepPositives():
 
 
 def dataPlotter():
-    posPer = validationStepPositivesPer100000()
-    deathsPer = validationStepDeathsPer100000()
-    pos = validationStepPositives()
-    death = validationStepDeaths()
-    functions = [posPer,deathsPer,pos,death]
     
-    for line in functions:
+    for line in validationStepPositivesPer100000():
+    #for line in validationStepDeathsPer100000()
+    #for line in validationStepPositives()
+    #for line in validationStepDeaths()
         if line[1] > 0:
             plotX.append(line[1])
             plotY.append(line[0])
